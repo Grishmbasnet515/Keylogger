@@ -1,15 +1,16 @@
-from keylogger import Keylogger
 import time
+from keylogger import Keylogger
 
-# Start keylogger (reports every 5 seconds to file)
-logger = Keylogger(interval=5, report_method="file")
+if __name__ == "__main__":
+    # Report to FILE every 5 seconds
+    logger = Keylogger(interval=5, report_method="file")
+    logger.start()
 
-# Start reporting in background
-logger.start()
+    # Simulate some typing
+    for ch in ["H", "e", "l", "l", "o", " ", "W", "o", "r", "l", "d", "!"]:
+        logger.key_press(ch)
+        time.sleep(0.4)
 
-# Simulate typing
-for char in ["H", "e", "l", "l", "o", " ", "W", "o", "r", "l", "d"]:
-    logger.key_press(char)
-    time.sleep(0.5)
-
-print("[*] Demo finished. Check your folder for log file.")
+    # Give it a little time to report, then stop
+    time.sleep(6)
+    logger.stop()
